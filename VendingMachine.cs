@@ -19,7 +19,11 @@ public class VendingMachine
 
     public void InsertCoin(string name)
     {
-        _coinsInCredit.Add(new Coin(name));
+        try
+        {
+            _coinsInCredit.Add(new Coin(name));
+        }
+        catch { }
     }
 
     public void SelectProduct(int slotId)
