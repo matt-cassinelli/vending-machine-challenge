@@ -1,4 +1,6 @@
-﻿var vendingMachine = new VendingMachine();
+﻿using VendingMachineApp;
+
+var vendingMachine = new VendingMachine();
 
 while (true)
 {
@@ -9,10 +11,10 @@ while (true)
 
 public class VendingMachine
 {
-    public List<string> CoinsInCredit = new List<string>();
+    public List<Coin> CoinsInCredit = new List<Coin>();
 
     public void InsertCoin(string name)
     {
-        CoinsInCredit.Add(name);
+        CoinsInCredit.Add(new Coin(name));
     }
 }
