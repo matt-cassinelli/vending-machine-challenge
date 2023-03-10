@@ -11,10 +11,11 @@ while (true)
 
 public class VendingMachine
 {
-    public List<Coin> CoinsInCredit = new List<Coin>();
+    private List<Coin> _coinsInCredit = new List<Coin>();
+    public double ValueInCredit => _coinsInCredit.Select(c => c.Value).Sum();
 
     public void InsertCoin(string name)
     {
-        CoinsInCredit.Add(new Coin(name));
+        _coinsInCredit.Add(new Coin(name));
     }
 }
