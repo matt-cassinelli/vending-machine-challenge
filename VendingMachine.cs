@@ -13,12 +13,18 @@ public class VendingMachine
             new Slot(id: 3, name: "Chocolate", price: 0.65, quantity: 4),
         };
     }
+    public double ValueInCredit => _coinsInCredit.Select(c => c.Value).Sum();
 
     public List<Slot> Slots { get; private set; }
-    public double ValueInCredit => _coinsInCredit.Select(c => c.Value).Sum();
+    public List<Product> ProductCollectionTray { get; private set; } = new List<Product>();
 
     public void InsertCoin(string name)
     {
         _coinsInCredit.Add(new Coin(name));
+    }
+
+    public void SelectProduct(int slotId)
+    {
+        Slots.Find(s => s.Id == slotId);
     }
 }

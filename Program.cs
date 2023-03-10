@@ -1,6 +1,4 @@
-﻿// UI Layer
-
-using VendingMachineApp;
+﻿using VendingMachineApp;
 
 var vendingMachine = new VendingMachine();
 
@@ -11,10 +9,14 @@ while (true)
     Console.WriteLine("2) SELECT PRODUCT");
     Console.WriteLine("3) RETURN MY COINS");
     Console.WriteLine();
+
     if (vendingMachine.ValueInCredit > 0)
         Console.WriteLine($"CREDIT: {vendingMachine.ValueInCredit.ToString("C")}");
     else
-        Console.WriteLine("INSERT COIN");
+        Console.WriteLine("PLEASE INSERT COIN");
+
+    if (vendingMachine.ProductCollectionTray.Any())
+        Console.WriteLine($"PLEASE COLLECT: {vendingMachine.ProductCollectionTray.Select(p => p.Name)}");
 
     string input = Console.ReadLine();
 
@@ -27,6 +29,14 @@ while (true)
             vendingMachine.InsertCoin(potentialCoin);
             break;
         case "2":
+            Console.Clear();
+            Console.WriteLine("SELECT PRODUCT:");
+            foreach (var slot in vendingMachine.Slots)
+            {
+                Console.WriteLine($"{slot.Id}) {slot.Name} {slot.Price.ToString("C")} QTY: {slot.Quantity}");
+            }
+            int.TryParse(Console.ReadLine(), out var potentialSlotId);
+            vendingMachine.SelectProduct(potentialSlotId);
             break;
         case "3":
             break;
