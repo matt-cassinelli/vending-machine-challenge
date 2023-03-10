@@ -1,7 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using System.Xml;
-
-namespace VendingMachineApp;
+﻿namespace VendingMachineApp;
 
 public class VendingMachine
 {

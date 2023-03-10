@@ -1,6 +1,4 @@
 ﻿namespace VendingMachineApp;
-using System.Collections;
-using System.Xml.Linq;
 
 public class Coin
 {
