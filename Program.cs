@@ -1,6 +1,33 @@
 ﻿using VendingMachineApp;
 
-var vendingMachine = new VendingMachine();
+var slots = new List<Slot>
+{
+    new Slot(id: 1, name: "Cola", price: 1.00, quantity: 3),
+    new Slot(id: 2, name: "Crisps", price: 0.50, quantity : 7),
+    new Slot(id: 3, name: "Chocolate", price: 0.65, quantity: 4),
+};
+
+var coinsToLoad = new List<Coin>
+{
+    new Coin("1p"),
+    new Coin("2p"),
+    new Coin("5p"),
+    new Coin("10p"),
+    new Coin("20p"),
+    new Coin("50p"),
+    new Coin("£1"),
+    new Coin("£2"),
+    new Coin("1p"),
+    new Coin("2p"),
+    new Coin("5p"),
+    new Coin("10p"),
+    new Coin("20p"),
+    new Coin("50p"),
+    new Coin("£1"),
+    new Coin("£2")
+};
+
+var vendingMachine = new VendingMachine(slots, coinsToLoad);
 
 while (true)
 {
@@ -16,11 +43,14 @@ while (true)
         Console.WriteLine("PLEASE INSERT COIN");
 
     if (vendingMachine.ProductCollectionTray.Any())
-        Console.WriteLine("PLEASE COLLECT: " + String.Join(", ", vendingMachine.ProductCollectionTray.Select(p => p.Name)));
+        Console.WriteLine("PLEASE COLLECT ITEMS: " + String.Join(", ", vendingMachine.ProductCollectionTray.Select(p => p.Name)));
 
-    string input = Console.ReadLine();
+    if (vendingMachine.CoinReturnTray.Any())
+        Console.WriteLine("PLEASE COLLECT COINS: " + String.Join(", ", vendingMachine.CoinReturnTray.Select(c => c.Name)));
 
-    switch (input)
+    string chosenOption = Console.ReadLine();
+
+    switch (chosenOption)
     {
         case "1":
             Console.Clear();

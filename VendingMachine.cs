@@ -1,22 +1,25 @@
-﻿namespace VendingMachineApp;
+﻿using System.Runtime.CompilerServices;
+using System.Xml;
+
+namespace VendingMachineApp;
 
 public class VendingMachine
 {
     private List<Coin> _coinsInCredit = new List<Coin>();
+    private List<Coin> _coinsInSafe;
 
-    public VendingMachine()
+    public VendingMachine(List<Slot> slots, List<Coin> coinsToLoad)
     {
-        Slots = new List<Slot>
-        {
-            new Slot(id: 1, name: "Cola", price: 1.00, quantity: 3),
-            new Slot(id: 2, name: "Crisps", price: 0.50, quantity : 7),
-            new Slot(id: 3, name: "Chocolate", price: 0.65, quantity: 4),
-        };
+        Slots = slots;
+        _coinsInSafe = coinsToLoad;
     }
+
     public double ValueInCredit => _coinsInCredit.Select(c => c.Value).Sum();
 
     public List<Slot> Slots { get; private set; }
     public List<Product> ProductCollectionTray { get; private set; } = new List<Product>();
+    public List<Coin> CoinReturnTray { get; private set; } = new List<Coin>();
+    // [todo] public bool ExactChangeRequired
 
     public void InsertCoin(string name)
     {
@@ -25,13 +28,63 @@ public class VendingMachine
 
     public void SelectProduct(int slotId)
     {
-        var product = Slots
-            .Find(s => s.Id == slotId)?
-            .Dispense();
+        var slot = Slots.Find(s => s.Id == slotId);
 
-        if (product != null)
+        if (slot != null && slot.Quantity > 0 && ValueInCredit >= slot.Price)
+        {
+            CoinReturnTray.AddRange(
+                NumberToCoins(ValueInCredit - slot.Price)
+            );
+
+            _coinsInSafe.AddRange(_coinsInCredit);
+            _coinsInCredit.Clear();
+
+            var product = slot.Dispense();
             ProductCollectionTray.Add(product);
+        }
+    }
 
-        // [todo] Give change back
+    private List<Coin> NumberToCoins(double amount)
+    {
+        var leftToConvert = amount;
+        var converted = new List<Coin>();
+
+        while (leftToConvert >= 50)
+        {
+            converted.Add(new Coin(50));
+            leftToConvert -= 50;
+        }
+
+        while (leftToConvert >= 20)
+        {
+            converted.Add(new Coin(20));
+            leftToConvert -= 20;
+        }
+
+        while (leftToConvert >= 10)
+        {
+            converted.Add(new Coin(10));
+            leftToConvert -= 10;
+        }
+
+        while (leftToConvert >= 5)
+        {
+            converted.Add(new Coin(5));
+            leftToConvert -= 5;
+        }
+
+        while (leftToConvert >= 2)
+        {
+            converted.Add(new Coin(2));
+            leftToConvert -= 2;
+        }
+
+        while (leftToConvert >= 1)
+        {
+            converted.Add(new Coin(1));
+            leftToConvert -= 1;
+        }
+
+        return converted;
     }
 }
