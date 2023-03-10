@@ -12,11 +12,10 @@ public class VendingMachine
     }
 
     public double ValueInCredit => _coinsInCredit.Select(c => c.Value).Sum();
-
-    public List<Slot> Slots { get; private set; }
-    public List<Product> ProductCollectionTray { get; private set; } = new List<Product>();
     public List<Coin> CoinReturnTray { get; private set; } = new List<Coin>();
     // [todo] public bool ExactChangeRequired
+    public List<Slot> Slots { get; private set; }
+    public List<Product> ProductCollectionTray { get; private set; } = new List<Product>();
 
     public void InsertCoin(string name)
     {
