@@ -16,7 +16,7 @@ while (true)
         Console.WriteLine("PLEASE INSERT COIN");
 
     if (vendingMachine.ProductCollectionTray.Any())
-        Console.WriteLine($"PLEASE COLLECT: {vendingMachine.ProductCollectionTray.Select(p => p.Name)}");
+        Console.WriteLine("PLEASE COLLECT: " + String.Join(", ", vendingMachine.ProductCollectionTray.Select(p => p.Name)));
 
     string input = Console.ReadLine();
 
@@ -31,10 +31,10 @@ while (true)
         case "2":
             Console.Clear();
             Console.WriteLine("SELECT PRODUCT:");
-            foreach (var slot in vendingMachine.Slots)
-            {
-                Console.WriteLine($"{slot.Id}) {slot.Name} {slot.Price.ToString("C")} QTY: {slot.Quantity}");
-            }
+
+            vendingMachine.Slots.ForEach(s =>
+                Console.WriteLine($"{s.Id}) {s.Name} {s.Price.ToString("C")} QTY: {s.Quantity}"));
+
             int.TryParse(Console.ReadLine(), out var potentialSlotId);
             vendingMachine.SelectProduct(potentialSlotId);
             break;

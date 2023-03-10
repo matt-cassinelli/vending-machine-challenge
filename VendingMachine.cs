@@ -25,6 +25,13 @@ public class VendingMachine
 
     public void SelectProduct(int slotId)
     {
-        Slots.Find(s => s.Id == slotId);
+        var product = Slots
+            .Find(s => s.Id == slotId)?
+            .Dispense();
+
+        if (product != null)
+            ProductCollectionTray.Add(product);
+
+        // [todo] Give change back
     }
 }

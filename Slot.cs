@@ -15,9 +15,10 @@ public class Slot
     public int Quantity { get; private set; }
     public Product? Dispense()
     {
-        if (Quantity > 0)
-            return new Product(Name);
-        else
+        if (Quantity == 0)
             return null;
+
+        Quantity--;
+        return new Product(Name);
     }
 }
