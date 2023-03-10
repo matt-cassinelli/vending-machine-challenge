@@ -55,40 +55,52 @@ public class VendingMachine
         var leftToConvert = amount;
         var converted = new List<Coin>();
 
-        while (leftToConvert >= 50)
+        while (leftToConvert >= 2.00)
         {
-            converted.Add(new Coin(50));
-            leftToConvert -= 50;
+            converted.Add(new Coin(2.00));
+            leftToConvert -= 2.00;
         }
 
-        while (leftToConvert >= 20)
+        while (leftToConvert >= 1.00)
         {
-            converted.Add(new Coin(20));
-            leftToConvert -= 20;
+            converted.Add(new Coin(1.00));
+            leftToConvert -= 1.00;
         }
 
-        while (leftToConvert >= 10)
+        while (leftToConvert >= 0.50)
         {
-            converted.Add(new Coin(10));
-            leftToConvert -= 10;
+            converted.Add(new Coin(0.50));
+            leftToConvert -= 0.50;
         }
 
-        while (leftToConvert >= 5)
+        while (leftToConvert >= 0.20)
         {
-            converted.Add(new Coin(5));
-            leftToConvert -= 5;
+            converted.Add(new Coin(0.20));
+            leftToConvert -= 0.20;
         }
 
-        while (leftToConvert >= 2)
+        while (leftToConvert >= 0.10)
         {
-            converted.Add(new Coin(2));
-            leftToConvert -= 2;
+            converted.Add(new Coin(0.10));
+            leftToConvert -= 0.10;
         }
 
-        while (leftToConvert >= 1)
+        while (leftToConvert >= 0.05)
         {
-            converted.Add(new Coin(1));
-            leftToConvert -= 1;
+            converted.Add(new Coin(0.05));
+            leftToConvert -= 0.05;
+        }
+
+        while (leftToConvert >= 0.02)
+        {
+            converted.Add(new Coin(0.02));
+            leftToConvert -= 0.02;
+        }
+
+        while (leftToConvert >= 0.01)
+        {
+            converted.Add(new Coin(0.01));
+            leftToConvert -= 0.01;
         }
 
         return converted;
