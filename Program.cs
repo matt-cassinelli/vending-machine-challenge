@@ -69,6 +69,7 @@ while (true)
             vendingMachine.SelectProduct(potentialSlotId);
             break;
         case "3":
+            vendingMachine.PressCoinReturnButton();
             break;
         default:
             break;

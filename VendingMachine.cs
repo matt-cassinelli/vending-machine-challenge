@@ -41,6 +41,12 @@ public class VendingMachine
         }
     }
 
+    public void PressCoinReturnButton()
+    {
+        CoinReturnTray.AddRange(_coinsInCredit);
+        _coinsInCredit.Clear();
+    }
+
     private List<Coin> NumberToCoins(double amount)
     {
         var leftToConvert = amount;
